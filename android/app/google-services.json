@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "605292502635",
+    "project_id": "scoutes-app",
+    "storage_bucket": "scoutes-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:605292502635:android:b4706ce569d8610e09db2e",
+        "android_client_info": {
+          "package_name": "com.pbatech.scoutes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "605292502635-ssos0n0ppaj01hftgeohrppuqphbnt84.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkaMP-FIf8VI4ge318WIakLs9WVWOoDIg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "605292502635-ssos0n0ppaj01hftgeohrppuqphbnt84.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
