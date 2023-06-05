@@ -104,7 +104,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    buildStatColumn(postLen, "posts"),
+                                    buildStatColumn(postLen, "posts", ),
                                     buildStatColumn(followers, "fanbase"),
                                     buildStatColumn(following, "fanning"),
                                   ],
@@ -189,7 +189,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         child: Text(
                           userData['bio'],
+                          
+                        ), 
+                        
+                      ),
+                       Container(
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(
+                          top: 1,
                         ),
+                        child: Text(
+                          userData['fullname'],
+                        ), 
                       ),
                     ],
                   ),

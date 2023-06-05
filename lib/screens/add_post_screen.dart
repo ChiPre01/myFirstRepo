@@ -20,7 +20,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
   final TextEditingController _desciptionController = TextEditingController();
   bool _isLoading = false;
 
-  void postImage(
+  void getVideo(
     String uid,
     String username,
     String profImage,
@@ -138,7 +138,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               centerTitle: false,
               actions: [
                 TextButton(
-                  onPressed: () => postImage(
+                  onPressed: () => getVideo(
                     user.uid,
                     user.username,
                     user.photoUrl,

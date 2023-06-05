@@ -16,22 +16,23 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+ 
   TextEditingController fullnameController = TextEditingController();
   TextEditingController bioController = TextEditingController();
-   Uint8List? _image;
+  Uint8List? _image;
   bool isLoading = false;
   bool _fullnameValid = true;
   bool _bioValid = true;
   User? user;
 
   @override
-   void selectImage() async {
+  void selectImage() async {
     Uint8List im = await pickImage(ImageSource.gallery);
     setState(() {
       _image = im;
     });
   }
-  
+
   void initState() {
     super.initState();
     getUser();
@@ -56,104 +57,110 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   updateProfileData() {
     setState(() {
       fullnameController.text.trim().length < 3 ||
-      fullnameController.text.isEmpty ? _fullnameValid = false :
-      _fullnameValid = true;
-      bioController.text.trim().length <3 ||
-      bioController.text.isEmpty ? _bioValid = false :
-      _bioValid = true;
+              fullnameController.text.isEmpty
+          ? _fullnameValid = false
+          : _fullnameValid = true;
+      bioController.text.trim().length < 3 || bioController.text.isEmpty
+          ? _bioValid = false
+          : _bioValid = true;
     });
-    if(_fullnameValid && _bioValid) {
+    if (_fullnameValid && _bioValid) {
       FirebaseFirestore.instance.collection('users').doc(widget.uid).update({
         "fullname": fullnameController.text,
         "bio": bioController.text,
       });
+     
+      
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        title: Text(
-          "Edit Profile",
-          style: TextStyle(
-            color: Colors.black,
-          ),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text(
-              'Go Back',
-              style: TextStyle(
-                  color: Color.fromARGB(255, 47, 41, 58),
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20),
+      
+      
+        appBar: AppBar(
+          backgroundColor: Colors.black,
+          title: Text(
+            "Edit Profile",
+            style: TextStyle(
+              color: Colors.white,
             ),
           ),
-        ],
-      ),
-      body: SafeArea(child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 32),
-        width: double.infinity,
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-             Stack(
-                children: [
-                  _image != null
-                      ? CircleAvatar(
-                          radius: 64,
-                          backgroundImage: NetworkImage('photoUrl'),
-                        )
-                      : const CircleAvatar(
-                          radius: 64,
-                          backgroundImage: NetworkImage(
-                              'https://i.pinimg.com/originals/f1/0f/f7/f10ff70a7155e5ab666bcdd1b45b726d.jpg'),
-                        ),
-                  Positioned(
-                    bottom: -10,
-                    left: 80,
-                    child: IconButton(
-                      onPressed: selectImage,
-                      icon: const Icon(
-                        Icons.add_a_photo,
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text(
+                'Go Back',
+                style: TextStyle(
+                    color: Color.fromARGB(255, 47, 41, 58),
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+            ),
+          ],
+        ),
+        body: SafeArea(
+          
+            child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 32),
+          width: double.infinity,
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+                CircleAvatar(
+                      backgroundImage: NetworkImage(
+                        user!.photoUrl,
                       ),
                     ),
-                  ),
-                ],
-              ),
               const SizedBox(
                 height: 10,
               ),
-               TextFieldInput(
+              TextFieldInput(
                 hintText: 'Enter your fullname',
                 textInputType: TextInputType.text,
                 textEditingController: fullnameController,
-              
+                
               ),
               const SizedBox(
                 height: 10,
               ),
-               TextFieldInput(
+              TextFieldInput(
                 hintText: 'Enter your bio',
                 textInputType: TextInputType.text,
                 textEditingController: bioController,
+                
               ),
               const SizedBox(
                 height: 10,
               ),
               InkWell(
                 onTap: updateProfileData,
-                child: Text('Update Profile', style: TextStyle(color: Colors.deepPurple, fontSize: 20, fontWeight: FontWeight.bold),),
+                child: Container(
+                  child: Text(
+                    'Update Profile',
+                    style: TextStyle(
+                        color: Colors.deepPurple,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.symmetric(vertical: 12),
+                  decoration: const ShapeDecoration(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(
+                          4,
+                        ),
+                      ),
+                    ),
+                    color: Colors.white
+                  ),
+                ),
               )
-              
-
-          ],
-        ),
-
-      ))
-    );
+            ],
+          ),
+        )));
   }
 }

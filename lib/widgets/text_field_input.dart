@@ -10,7 +10,7 @@ class TextFieldInput extends StatelessWidget {
       required this.textEditingController,
       this.isPass = false,
       required this.hintText,
-      required this.textInputType});
+      required this.textInputType, });
 
   @override
   Widget build(BuildContext context) {
