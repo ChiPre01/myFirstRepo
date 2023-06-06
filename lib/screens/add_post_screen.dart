@@ -72,7 +72,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 child: const Text('Take a Photo'),
                 onPressed: () async {
                   Navigator.of(context).pop();
-                  Uint8List file = await getVido(
+                  Uint8List file = await getVidoo(
                     ImageSource.camera,
                   );
                   setState(() {
