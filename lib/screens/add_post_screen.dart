@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -8,6 +9,9 @@ import 'package:scoutes/providers/user_provider.dart';
 import 'package:scoutes/resources/firestore_methods.dart';
 import 'package:scoutes/utilis/utilis.dart';
 
+File? videoFile;
+final picker = ImagePicker();
+
 class AddPostScreen extends StatefulWidget {
   const AddPostScreen({super.key});
 
@@ -16,7 +20,8 @@ class AddPostScreen extends StatefulWidget {
 }
 
 class _AddPostScreenState extends State<AddPostScreen> {
-  Uint8List? _file;
+  File? galleryFile;
+  final picker = ImagePicker();
   final TextEditingController _desciptionController = TextEditingController();
   bool _isLoading = false;
 
@@ -31,7 +36,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
     try {
       String res = await FirestoreMethods().uploadPost(
         _desciptionController.text,
-        _file!,
+        _file,
         uid,
         username,
         profImage,
@@ -72,7 +77,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 child: const Text('Take a Photo'),
                 onPressed: () async {
                   Navigator.of(context).pop();
-                  Uint8List file = await getVideo(
+                  Uint8List file = await pickImage(
                     ImageSource.camera,
                   );
                   setState(() {
